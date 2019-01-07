@@ -1,0 +1,8 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+
+calc_route:
+  path: /calc
+  controller: App\Controller\calcController::handle

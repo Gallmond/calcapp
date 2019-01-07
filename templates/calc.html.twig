@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cool and fun calculator</title>
+</head>
+<body>
+<!--
+create a simple calculator that can handle the following calculation types: plus,
+minus, multiplication, division.
+-->
+    <h1>cool calculator</h1>
+    <form action="/calc" method="POST">
+        <input name="num_x" type="number" placeholder="X" required>
+        <select name="operation">
+            <option value="add">add</option>
+            <option value="subtract">subtract</option>
+            <option value="multiply">multiply</option>
+            <option value="divide">divide</option>
+        </select>
+        <input name="num_y" type="number" placeholder="Y" required>
+        <button type="submit" >Submit</button>
+    </form>
+    {% if result is defined %}
+        <h2>{{ result }}</h2>
+    {% endif %}
+    {% if info is defined %}
+        <h2>{{ info }}</h2>
+    {% endif %}
+</body>
+</html>
