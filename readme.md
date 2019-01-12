@@ -18,6 +18,7 @@ PHP 7.1.5 Development Server started at Mon Jan  7 09:50:50 2019
 Listening on http://127.0.0.1:8000
 [...]
 ```
+Run locally at `/calc_mk2`
 
 ## Pages changed from default mk2
 - src/Controller/calc_mk2Controller.php
