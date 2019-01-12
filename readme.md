@@ -19,7 +19,16 @@ Listening on http://127.0.0.1:8000
 [...]
 ```
 
-## Pages changed from default
-- src/Controller/calcController.php
-- templates/calc.html.twig
+## Pages changed from default mk2
+- src/Controller/calc_mk2Controller.php
+- src/Entity/calculator.php
+- templates/calc_mk2.html.twig
 - config/routes.yaml
+
+## With more time
+
+Most time was spent trying and failing to get twig blocks to work. Ideally the bootstrap parts, calulator js, and calculator html would be in their own template blocks.
+
+The continual operations also continue after the equals press which is not intuitive.
+
+Would also ideally add numpad inputs.

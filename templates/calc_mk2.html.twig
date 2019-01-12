@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cool and fun calculator</title>
+
+    <!-- 4.2 https://getbootstrap.com/docs/4.2/getting-started/introduction/ -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <style>
+        .displayline{
+            background-color:gray;
+            height:25px;
+        }
+
+        .row{
+            padding-bottom:5px;
+        }
+
+        .container{
+            width:500px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-10">
+
+                {# display #}
+                <div class="row">
+                    <div class="col-sm-10">
+                        <div class="row displayline">
+                            <div class="col-sm-9" id="topdisplay">
+
+                            </div>
+                            <div class="col-sm-1" id="operationdisplay">
+
+                            </div>
+                        </div>
+                        <div class="row displayline">
+                            <div class="col-sm-10" id="bottomdisplay">
+
+                            </div>
+                        </div>
+                        <div class="row displayline">
+                            <div class="col-sm-10" id="errorinfo">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                {# button row 1 #}
+                <div class="row">
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-primary number_button" value="7">7</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-primary number_button" value="8">8</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-primary number_button" value="9">9</button>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-secondary operation_button" value="-">-</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-secondary operation_button" value="+">+</button>
+                    </div>
+                </div>
+
+                {# button row 2 #}
+                <div class="row">
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-primary number_button" value="4">4</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-primary number_button" value="5">5</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-primary number_button" value="6">6</button>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-secondary operation_button" value="x">x</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-secondary operation_button" value="/">/</button>
+                    </div>
+                </div>
+
+                {# button row 3 #}
+                <div class="row">
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-primary number_button" value="1">1</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-primary number_button" value="2">2</button>
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-primary number_button" value="3">3</button>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-secondary operation_button" value="=">=</button>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-secondary" id="clear_button" value="C">C</button>
+                    </div>
+                </div>
+
+                {# button row 4 #}
+                <div class="row">
+                    <div class="col-sm-2">
+
+                    </div>
+                    <div class="col-sm-2">
+                        <button type="button" class="btn-block btn-primary number_button" value="0">0</button>
+                    </div>
+                    <div class="col-sm-6">
+
+                    </div>
+                </div>
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function autorun()
+        {
+
+            var calc = function(){
+
+                this.init = function(){
+                    this.runningtotalString = false;
+                    this.newInputString = false;
+                    this.operation = false;
+                    this.errorinfo = false;
+                };
+                this.writeNumbers = function(){
+                    document.getElementById("topdisplay").innerText = String( (!this.newInputString?"":this.newInputString) );
+                    document.getElementById("bottomdisplay").innerText = String( (!this.runningtotalString?"":this.runningtotalString) );
+                    document.getElementById("operationdisplay").innerText = String( (!this.operation?"":this.operation) );
+                    document.getElementById("errorinfo").innerText = String( (!this.errorinfo?"":this.errorinfo) );
+
+                };
+                this.numberInput = function(_n){
+                    if(this.newInputString===false) this.newInputString = "";
+                    this.newInputString += String(_n);
+                    this.writeNumbers();
+                };
+                this.clearInput = function(){
+                    this.newInputString = false;
+                    document.getElementById("topdisplay").innerText = "";
+                };
+                this.clearAll = function(){
+                    this.init();
+                    document.getElementById("topdisplay").innerText = "";
+                    document.getElementById("bottomdisplay").innerText = "";
+                    document.getElementById("operationdisplay").innerText = "";
+                };
+
+                this.operationButton = function(_s){
+
+                    if(_s !== "="){
+                        this.operation = String(_s);
+                    }
+
+                    if(this.runningtotalString === false){ // set current input to running total if none already
+                        this.runningtotalString = this.newInputString;
+                        this.newInputString = false;
+                        this.writeNumbers();
+                        return true;
+                    }else{// send math request
+
+                        // only send if all exist
+                        if(!this.newInputString ||!this.runningtotalString ||!this.operation) return false;
+
+
+                        var toSend = {
+                            "num_x": this.newInputString,
+                            "num_y": this.runningtotalString,
+                            "operation": this.operation
+                        };
+
+                        var xhttp;
+                        xhttp = new XMLHttpRequest();
+                        xhttp.onreadystatechange = function() {
+                            if (this.readyState === 4){
+                                console.log(this);
+                                // write regardless of success
+                                console.log(this.responseText);
+
+                                if(this.status = 200){
+                                    // expects like:
+                                    /*
+                                    "num_x" => $num_x,
+                                    "num_y" => $num_y,
+                                    "operation" => $operation,
+                                    "result";
+                                     */
+                                    var jsonResult = JSON.parse(this.responseText);
+
+                                    calculator.runningtotalString = jsonResult.result;
+                                    calculator.clearInput();
+                                    calculator.writeNumbers();
+                                }else{
+
+                                    calculator.errorinfo = this.responseText;
+                                    calculator.clearInput();
+                                    calculator.writeNumbers();
+                                }
+
+                            }
+                        }
+                        console.log("sending", toSend);
+                        var jsonString = JSON.stringify(toSend);
+                        xhttp.open("POST", "/calc_mk2_ajax", true);
+                        xhttp.setRequestHeader("Content-type", "application/json");
+                        xhttp.send( jsonString );
+                    }
+
+                };
+
+
+                this.init();
+            };
+            var calculator = new calc();
+
+            // set clear
+            document.getElementById("clear_button").addEventListener("click",(e)=>{
+                e.preventDefault();
+                e.stopPropagation();
+                console.log(e.target.value + " clicked");
+                calculator.clearAll();
+            });
+
+            // set number buttons
+            var numbuttons = document.getElementsByClassName("number_button");
+            for(var i = 0; i < numbuttons.length; i++){
+                numbuttons[i].addEventListener("click",(e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log(e.target.value + " clicked");
+                    calculator.numberInput( parseInt(e.target.value) );
+                });
+            }
+
+            // set operation buttons
+            var operationbuttons = document.getElementsByClassName("operation_button");
+            for(var i = 0; i < operationbuttons.length; i++){
+                operationbuttons[i].addEventListener("click",(e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    console.log(e.target.value + " clicked");
+                    calculator.operationButton( String(e.target.value) );
+                });
+            }
+
+
+        }
+        if (document.addEventListener) document.addEventListener("DOMContentLoaded", autorun, false);
+        else if (document.attachEvent) document.attachEvent("onreadystatechange", autorun);
+        else window.onload = autorun;
+    </script>
+    <!-- 4.2 https://getbootstrap.com/docs/4.2/getting-started/introduction/ -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+</html>

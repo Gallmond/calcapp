@@ -6,3 +6,11 @@
 calc_route:
   path: /calc
   controller: App\Controller\calcController::handle
+
+calc_mk2_route:
+  path: /calc_mk2
+  controller: App\Controller\calc_mk2Controller::handle
+
+calc_mk2_ajax_route:
+  path: /calc_mk2_ajax
+  controller: App\Controller\calc_mk2Controller::mathRequest
